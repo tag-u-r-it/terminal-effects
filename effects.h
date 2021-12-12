@@ -13,10 +13,10 @@ class Effects
     
     void init_matrix(int x, int y)
     {
-        for (int i = 0; i < x; i++)
+        for (int i = 0; i < y; i++)
         {
             std::vector<int> chunk;
-            for (int j = 0; j < y; j++)
+            for (int j = 0; j < x; j++)
             {
                 chunk.push_back(0);
             }

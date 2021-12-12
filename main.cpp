@@ -6,10 +6,10 @@
 int main()
 {
     Effects effects;
-    
+
+    int x_input, y_input;
     std::cout << "Size of matrix" << std::endl;
     std::cout << "x: ";
-    int x_input, y_input;
     std::cin >> x_input;
     std::cout << "y: ";
     std::cin >> y_input;
