@@ -6,11 +6,21 @@
 int main()
 {
     Effects effects;
+    
+    std::cout << "Size of matrix" << std::endl;
+    std::cout << "x: ";
+    int x_input, y_input;
+    std::cin >> x_input;
+    std::cout << "y: ";
+    std::cin >> y_input;
+    effects.init_matrix(x_input, y_input);
+
     srand(time(NULL));
 
     std::thread t1([&effects]{
             effects.draw_screen();
         });
+        
     int threadCount = 4;
     std::thread threads[threadCount];
     for(int i = 0; i < threadCount; i++)
@@ -25,7 +35,7 @@ int main()
         });
     }
 
-    t1.join();
+    t1.join(); //line 20 really wants this
 
     return 0;
 }

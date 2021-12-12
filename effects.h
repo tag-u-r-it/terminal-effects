@@ -4,14 +4,28 @@
 #include <vector>
 #include <ctime>
 
-#define X 10
-#define Y 20
 #define speed 250
-std::vector<std::vector<int>> matrix(X, std::vector<int>(Y, 0));
 
 class Effects
 {
+    std::vector<std::vector<int>> matrix;
     public:
+    
+    void init_matrix(int x, int y)
+    {
+        for (int i = 0; i < x; i++)
+        {
+            std::vector<int> chunk;
+            for (int j = 0; j < y; j++)
+            {
+                chunk.push_back(0);
+            }
+            matrix.push_back(chunk);
+        }
+    }
+
+    private:
+
     void effect_sweep_horizontal()
     {
         for(int y = 0; y < matrix[0].size(); y++)
@@ -48,6 +62,8 @@ class Effects
             }
         }
     }
+
+    public:
 
     void draw_screen()
     {
