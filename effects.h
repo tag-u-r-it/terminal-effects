@@ -6,6 +6,14 @@
 
 #define speed 250
 
+#ifdef _WIN32
+#define OS "windows"
+#endif
+
+#ifdef __linux__
+#define OS "linux"
+#endif
+
 class Effects
 {
     std::vector<std::vector<int>> matrix;
@@ -57,6 +65,8 @@ class Effects
                 }
                 if(x == 0)
                 {
+                    //matrix[0].back or matrix[0][-1]? I can't decide
+                    //Benchmark, anyone?
                     matrix[x].back() = 0;
                 }
             }
@@ -70,7 +80,11 @@ class Effects
         while(true)
         {
             std::this_thread::sleep_for(std::chrono::milliseconds(60));
-            system("clear");
+            if(OS == "linux") system("clear");
+            else if(OS == "windows") system("cls");
+
+            //Last numbers in row and in line will be always 1.
+            //That's why they need to be clipped out with matrix.size()-1
             for(int x = 0; x < matrix.size()-1; x++)
             {
                 for(int y = 0; y < matrix[0].size()-1; y++) std::cout << matrix[x][y];

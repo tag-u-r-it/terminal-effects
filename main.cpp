@@ -35,7 +35,8 @@ int main()
         });
     }
 
-    t1.join(); //line 20 really wants this
+    //Line 20 really wants this
+    t1.join();
 
     return 0;
 }
