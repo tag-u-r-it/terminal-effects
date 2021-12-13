@@ -32,7 +32,7 @@ int main()
             while(true)
             {
                 //2 possible effects
-                int index = rand() % 3;
+                int index = rand() % 4;
                 effects.random_effect(index);
             }
         });

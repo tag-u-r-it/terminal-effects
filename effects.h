@@ -31,6 +31,29 @@ class Effects
         }
     }
 
+    void effect_sweep_horizontal_inverted()
+    {
+        for(int y = 0; y < matrix[0].size(); y++)
+        {
+            std::this_thread::sleep_for(std::chrono::milliseconds(Speed));
+            if(y == 0)
+            {
+                for(int x = 0; x < matrix.size(); x++)
+                {
+                    matrix[x][0] = 0;
+                }
+            }
+            else
+            {
+                for(int x = 0; x < matrix.size(); x++)
+                {
+                    matrix[x].end()[-y-1] = 1;
+                    matrix[x].end()[-y] = 0;
+                }
+            }
+        }
+    }
+
     void effect_sweep_vertical()
     {
         for(int x = 0; x < matrix.size(); x++)
@@ -105,5 +128,6 @@ class Effects
         if(index == 0) effect_sweep_horizontal();
         if(index == 1) effect_sweep_vertical();
         if(index == 2) effect_snake();
+        if(index == 3) effect_sweep_horizontal_inverted();
     }
 };
