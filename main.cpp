@@ -17,7 +17,10 @@ int main()
     srand(time(NULL));
 
     std::thread t1([&effects]{
-            effects.draw_screen();
+            while(true)
+            {
+                effects.draw_screen();
+            }
         });
         
     int threadCount = 4;

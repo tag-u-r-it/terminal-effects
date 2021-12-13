@@ -74,19 +74,16 @@ class Effects
 
     void draw_screen()
     {
-        while(true)
+        std::this_thread::sleep_for(std::chrono::milliseconds(60));
+        if(OS == "linux") system("clear");
+        else if(OS == "windows") system("cls");
+        
+        //Last numbers in row and in line will be always 1.
+        //That's why they need to be clipped out with matrix.size()-1
+        for(int x = 0; x < matrix.size()-1; x++)
         {
-            std::this_thread::sleep_for(std::chrono::milliseconds(60));
-            if(OS == "linux") system("clear");
-            else if(OS == "windows") system("cls");
-
-            //Last numbers in row and in line will be always 1.
-            //That's why they need to be clipped out with matrix.size()-1
-            for(int x = 0; x < matrix.size()-1; x++)
-            {
-                for(int y = 0; y < matrix[0].size()-1; y++) std::cout << matrix[x][y];
-                std::cout << std::endl;
-            }
+            for(int y = 0; y < matrix[0].size()-1; y++) std::cout << matrix[x][y];
+            std::cout << std::endl;
         }
     }
 
