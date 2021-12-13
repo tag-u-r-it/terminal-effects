@@ -8,11 +8,10 @@ int main()
     Effects effects;
 
     int x_input, y_input;
-    std::cout << "Size of matrix" << std::endl;
-    std::cout << "x: ";
+    std::cout << "Width of matrix: ";
     std::cin >> x_input;
-    std::cout << "y: ";
-    std::cin >> y_input;
+    x_input = x_input+1;
+    y_input = x_input/2;
     effects.init_matrix(x_input, y_input);
 
     srand(time(NULL));
@@ -36,7 +35,7 @@ int main()
         });
     }
 
-    //Line 20 really wants this
+    //Line 19 really wants this
     t1.join();
 
     return 0;
