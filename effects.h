@@ -53,7 +53,7 @@ class Effects
             {
                 for(int y = 0; y < matrix[0].size(); y++)
                 {
-                    std::this_thread::sleep_for(std::chrono::milliseconds(Speed));
+                    std::this_thread::sleep_for(std::chrono::milliseconds(Speed/10));
                     matrix[x][y] = 1;
                 }
                 pos_left = false;
@@ -62,7 +62,7 @@ class Effects
             {
                 for(int y = 0; y < matrix[0].size(); y++)
                 {
-                    std::this_thread::sleep_for(std::chrono::milliseconds(Speed));
+                    std::this_thread::sleep_for(std::chrono::milliseconds(Speed/10));
                     matrix[x].end()[-y-1] = 1;
                 }
                 pos_left = true;                
