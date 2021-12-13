@@ -44,6 +44,32 @@ class Effects
         }
     }
 
+    void effect_snake()
+    {
+        bool pos_left = true;
+        for(int x = 0; x < matrix.size(); x++)
+        {
+            if(pos_left)
+            {
+                for(int y = 0; y < matrix[0].size(); y++)
+                {
+                    std::this_thread::sleep_for(std::chrono::milliseconds(Speed));
+                    matrix[x][y] = 1;
+                }
+                pos_left = false;
+            }
+            else
+            {
+                for(int y = 0; y < matrix[0].size(); y++)
+                {
+                    std::this_thread::sleep_for(std::chrono::milliseconds(Speed));
+                    matrix[x].end()[-y-1] = 1;
+                }
+                pos_left = true;                
+            }
+        }
+    }
+
     public:
 
     void init_matrix(int x, int y)
@@ -78,5 +104,6 @@ class Effects
     {
         if(index == 0) effect_sweep_horizontal();
         if(index == 1) effect_sweep_vertical();
+        if(index == 2) effect_snake();
     }
 };
