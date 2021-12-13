@@ -4,7 +4,7 @@
 #include <vector>
 #include <ctime>
 
-#define speed 250
+#define Speed 250
 
 #ifdef _WIN32
 #define OS "windows"
@@ -17,28 +17,12 @@
 class Effects
 {
     std::vector<std::vector<int>> matrix;
-    public:
-    
-    void init_matrix(int x, int y)
-    {
-        for (int i = 0; i < y; i++)
-        {
-            std::vector<int> chunk;
-            for (int j = 0; j < x; j++)
-            {
-                chunk.push_back(0);
-            }
-            matrix.push_back(chunk);
-        }
-    }
-
-    private:
 
     void effect_sweep_horizontal()
     {
         for(int y = 0; y < matrix[0].size(); y++)
         {
-            std::this_thread::sleep_for(std::chrono::milliseconds(speed));
+            std::this_thread::sleep_for(std::chrono::milliseconds(Speed));
             for(int x = 0; x < matrix.size(); x++)
             {
                 matrix[x][y] = 1;
@@ -55,7 +39,7 @@ class Effects
     {
         for(int x = 0; x < matrix.size(); x++)
         {
-            std::this_thread::sleep_for(std::chrono::milliseconds(speed));
+            std::this_thread::sleep_for(std::chrono::milliseconds(Speed));
             for(int y = 0; y < matrix[0].size(); y++)
             {
                 matrix[x][y] = 1;
@@ -74,6 +58,19 @@ class Effects
     }
 
     public:
+
+    void init_matrix(int x, int y)
+    {
+        for (int i = 0; i < y; i++)
+        {
+            std::vector<int> chunk;
+            for (int j = 0; j < x; j++)
+            {
+                chunk.push_back(0);
+            }
+            matrix.push_back(chunk);
+        }
+    }
 
     void draw_screen()
     {

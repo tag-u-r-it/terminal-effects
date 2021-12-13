@@ -24,7 +24,7 @@ int main()
     std::thread threads[threadCount];
     for(int i = 0; i < threadCount; i++)
     {
-        std::this_thread::sleep_for(std::chrono::milliseconds(speed + 500));
+        std::this_thread::sleep_for(std::chrono::milliseconds(rand() % Speed + Speed * 2));
         threads[i] = std::thread([&effects]{
             while(true)
             {
