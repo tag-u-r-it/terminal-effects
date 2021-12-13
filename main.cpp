@@ -10,7 +10,6 @@ int main()
     int x_input, y_input;
     std::cout << "Width of matrix: ";
     std::cin >> x_input;
-    x_input = x_input+1;
     y_input = x_input/2;
     effects.init_matrix(x_input, y_input);
 
@@ -38,7 +37,7 @@ int main()
         });
     }
 
-    //Line 19 really wants this
+    //Line 18 really wants this
     t1.join();
 
     return 0;

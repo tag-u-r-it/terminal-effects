@@ -23,15 +23,25 @@ class Effects
         for(int y = 0; y < matrix[0].size(); y++)
         {
             std::this_thread::sleep_for(std::chrono::milliseconds(Speed));
-            for(int x = 0; x < matrix.size(); x++)
+            if(y == 0)
             {
-                matrix[x][y] = 1;
-                matrix[x][y-1] = 0;
+                for(int x = 0; x < matrix.size(); x++)
+                {
+                    matrix[x].back() = 0;
+                }
+            }
+            else
+            {
+                for(int x = 0; x < matrix.size(); x++)
+                {
+                    matrix[x][y] = 1;
+                    matrix[x][y-1] = 0;
+                }
             }
         }
     }
 
-    void effect_sweep_horizontal_inverted()
+    void effect_sweep_horizontal_reverse()
     {
         for(int y = 0; y < matrix[0].size(); y++)
         {
@@ -40,7 +50,7 @@ class Effects
             {
                 for(int x = 0; x < matrix.size(); x++)
                 {
-                    matrix[x][0] = 0;
+                    matrix[x].front() = 0;
                 }
             }
             else
@@ -59,10 +69,21 @@ class Effects
         for(int x = 0; x < matrix.size(); x++)
         {
             std::this_thread::sleep_for(std::chrono::milliseconds(Speed));
-            for(int y = 0; y < matrix[0].size(); y++)
+            if(x == 0)
             {
-                matrix[x][y] = 1;
-                if(x > 0) matrix[x-1][y] = 0;
+                for(int y = 0; y < matrix[0].size(); y++)
+                {
+                    matrix[x][y] = 1;
+                    matrix.back()[y] = 0;
+                }
+            }
+            else
+            {
+                for(int y = 0; y < matrix[0].size(); y++)
+                {
+                    matrix[x][y] = 1;
+                    if(x > 0) matrix[x-1][y] = 0;
+                }
             }
         }
     }
@@ -114,11 +135,9 @@ class Effects
         if(OS == "linux") system("clear");
         else if(OS == "windows") system("cls");
 
-        //Last numbers in row and in line will be always 1.
-        //That's why they need to be clipped out with matrix.size()-1
-        for(int x = 0; x < matrix.size()-1; x++)
+        for(int x = 0; x < matrix.size(); x++)
         {
-            for(int y = 0; y < matrix[0].size()-1; y++) std::cout << matrix[x][y];
+            for(int y = 0; y < matrix[0].size(); y++) std::cout << matrix[x][y];
             std::cout << std::endl;
         }
     }
@@ -128,6 +147,6 @@ class Effects
         if(index == 0) effect_sweep_horizontal();
         if(index == 1) effect_sweep_vertical();
         if(index == 2) effect_snake();
-        if(index == 3) effect_sweep_horizontal_inverted();
+        if(index == 3) effect_sweep_horizontal_reverse();
     }
 };
