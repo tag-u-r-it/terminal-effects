@@ -22,7 +22,7 @@ int main()
             }
         });
         
-    int threadCount = std::thread::hardware_concurrency()-1;
+    int threadCount = 4;
     std::thread threads[threadCount];
     for(int i = 0; i < threadCount; i++)
     {
