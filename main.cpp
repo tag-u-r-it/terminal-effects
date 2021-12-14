@@ -30,7 +30,7 @@ int main()
         threads[i] = std::thread([&effects]{
             while(true)
             {
-                //2 possible effects
+                //4 possible effects
                 int index = rand() % 4;
                 effects.random_effect(index);
             }

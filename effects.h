@@ -90,7 +90,8 @@ class Effects
                 for(int y = 0; y < matrix[0].size(); y++)
                 {
                     std::this_thread::sleep_for(std::chrono::milliseconds(Speed/10));
-                    matrix[x][y] = 1;
+                    if(matrix[x][y] == 0) matrix[x][y] = 1;
+                    else matrix[x][y] = 0;
                 }
                 pos_left = false;
             }
@@ -99,7 +100,8 @@ class Effects
                 for(int y = 0; y < matrix[0].size(); y++)
                 {
                     std::this_thread::sleep_for(std::chrono::milliseconds(Speed/10));
-                    matrix[x].end()[-y-1] = 1;
+                    if(matrix[x].end()[-y-1] == 0) matrix[x].end()[-y-1] = 1;
+                    else matrix[x].end()[-y-1] = 0;
                 }
                 pos_left = true;                
             }
