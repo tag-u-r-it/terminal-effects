@@ -1,8 +1,6 @@
 #include <iostream>
 #include <chrono>
-#include <thread>
 #include <vector>
-#include <ctime>
 
 #define Speed 250
 
@@ -23,20 +21,19 @@ class Effects
         for(int y = 0; y < matrix[0].size(); y++)
         {
             std::this_thread::sleep_for(std::chrono::milliseconds(Speed));
-            if(y == 0)
+            for(int x = 0; x < matrix.size(); x++)
             {
-                for(int x = 0; x < matrix.size(); x++)
-                {
-                    matrix[x].back() = 0;
-                }
+                matrix[x][y] = 1;
+                matrix[x][y-1] = 0;
             }
-            else
+            
+        }
+        std::this_thread::sleep_for(std::chrono::milliseconds(Speed));
+        for(int y = 0; y < matrix[0].size(); y++)
+        {
+            for(int x = 0; x < matrix.size(); x++)
             {
-                for(int x = 0; x < matrix.size(); x++)
-                {
-                    matrix[x][y] = 1;
-                    matrix[x][y-1] = 0;
-                }
+                matrix[x].back() = 0;
             }
         }
     }
@@ -46,20 +43,18 @@ class Effects
         for(int y = 0; y < matrix[0].size(); y++)
         {
             std::this_thread::sleep_for(std::chrono::milliseconds(Speed));
-            if(y == 0)
+            for(int x = 0; x < matrix.size(); x++)
             {
-                for(int x = 0; x < matrix.size(); x++)
-                {
-                    matrix[x].front() = 0;
-                }
+                matrix[x].end()[-y-1] = 1;
+                matrix[x].end()[-y] = 0;
             }
-            else
+        }
+        std::this_thread::sleep_for(std::chrono::milliseconds(Speed));
+        for(int y = 0; y < matrix[0].size(); y++)
+        {
+            for(int x = 0; x < matrix.size(); x++)
             {
-                for(int x = 0; x < matrix.size(); x++)
-                {
-                    matrix[x].end()[-y-1] = 1;
-                    matrix[x].end()[-y] = 0;
-                }
+                matrix[x].front() = 0;
             }
         }
     }
@@ -69,21 +64,18 @@ class Effects
         for(int x = 0; x < matrix.size(); x++)
         {
             std::this_thread::sleep_for(std::chrono::milliseconds(Speed));
-            if(x == 0)
+            for(int y = 0; y < matrix[0].size(); y++)
             {
-                for(int y = 0; y < matrix[0].size(); y++)
-                {
-                    matrix[x][y] = 1;
-                    matrix.back()[y] = 0;
-                }
+                matrix[x][y] = 1;
+                if(x > 0) matrix[x-1][y] = 0;
             }
-            else
+        }
+        std::this_thread::sleep_for(std::chrono::milliseconds(Speed));
+        for(int x = 0; x < matrix.size(); x++)
+        {
+            for(int y = 0; y < matrix[0].size(); y++)
             {
-                for(int y = 0; y < matrix[0].size(); y++)
-                {
-                    matrix[x][y] = 1;
-                    if(x > 0) matrix[x-1][y] = 0;
-                }
+                matrix.back()[y] = 0;
             }
         }
     }
@@ -145,8 +137,8 @@ class Effects
     void random_effect(int index)
     {
         if(index == 0) effect_sweep_horizontal();
-        if(index == 1) effect_sweep_vertical();
-        if(index == 2) effect_snake();
-        if(index == 3) effect_sweep_horizontal_reverse();
+        if(index == 1) effect_sweep_horizontal_reverse();
+        if(index == 2) effect_sweep_vertical();
+        if(index == 3) effect_snake();        
     }
 };
