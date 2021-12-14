@@ -80,6 +80,27 @@ class Effects
         }
     }
 
+    void effect_sweep_vertical_reverse()
+    {
+        for(int x = matrix.size() -1; x >= 0; x--)
+        {
+            std::this_thread::sleep_for(std::chrono::milliseconds(Speed));
+            for(int y = 0; y < matrix[0].size(); y++)
+            {
+                matrix[x][y] = 1;
+                if(x < matrix.size()-1) matrix[x+1][y] = 0;
+            }
+        }
+        std::this_thread::sleep_for(std::chrono::milliseconds(Speed));
+        for(int x = matrix.size() -1; x >= 0; x--)
+        {
+            for(int y = 0; y < matrix[0].size(); y++)
+            {
+                matrix.front()[y] = 0;
+            }
+        }
+    }
+
     void effect_snake()
     {
         bool pos_left = true;
@@ -106,6 +127,35 @@ class Effects
                 pos_left = true;                
             }
         }
+    }
+
+    void effect_snake_reverse()
+    {
+        bool pos_left = true;
+        for(int x = matrix.size() -1 ; x >= 0; x--)
+        {
+            //matrix[x].end()[-y-1] = 1;
+            if(pos_left)
+            {
+                for(int y = 0; y < matrix[0].size(); y++)
+                {
+                    std::this_thread::sleep_for(std::chrono::milliseconds(Speed/10));
+                    if(matrix[x][y] == 0) matrix[x][y] = 1;
+                    else matrix[x][y] = 0;
+                }
+                pos_left = false;
+            }
+            else
+            {
+                for(int y = 0; y < matrix[0].size(); y++)
+                {
+                    std::this_thread::sleep_for(std::chrono::milliseconds(Speed/10));
+                    if(matrix[x].end()[-y-1] == 0) matrix[x].end()[-y-1] = 1;
+                    else matrix[x].end()[-y-1] = 0;
+                }
+                pos_left = true;                
+            }
+        }  
     }
 
     public:
@@ -141,6 +191,8 @@ class Effects
         if(index == 0) effect_sweep_horizontal();
         if(index == 1) effect_sweep_horizontal_reverse();
         if(index == 2) effect_sweep_vertical();
-        if(index == 3) effect_snake();        
+        if(index == 3) effect_sweep_vertical_reverse();
+        if(index == 4) effect_snake();
+        if(index == 5) effect_snake_reverse();
     }
 };
