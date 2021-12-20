@@ -30,14 +30,12 @@ int main()
         threads[i] = std::thread([&effects]{
             while(true)
             {
-                //6 possible effects
-                int index = rand() % 6;
+                //7 possible effects
+                int index = rand() % 7;
                 effects.random_effect(index);
             }
         });
     }
-
-    //Line 18 really wants this
     t1.join();
 
     return 0;

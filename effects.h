@@ -16,7 +16,7 @@ class Effects
 {
     std::vector<std::vector<int>> matrix;
 
-    void effect_sweep_horizontal()
+    void effect_horizontal()
     {
         for(int y = 0; y < matrix[0].size(); y++)
         {
@@ -38,7 +38,7 @@ class Effects
         }
     }
 
-    void effect_sweep_horizontal_reverse()
+    void effect_horizontal_reverse()
     {
         for(int y = 0; y < matrix[0].size(); y++)
         {
@@ -59,7 +59,7 @@ class Effects
         }
     }
 
-    void effect_sweep_vertical()
+    void effect_vertical()
     {
         for(int x = 0; x < matrix.size(); x++)
         {
@@ -80,7 +80,7 @@ class Effects
         }
     }
 
-    void effect_sweep_vertical_reverse()
+    void effect_vertical_reverse()
     {
         for(int x = matrix.size() -1; x >= 0; x--)
         {
@@ -134,7 +134,6 @@ class Effects
         bool pos_left = true;
         for(int x = matrix.size() -1 ; x >= 0; x--)
         {
-            //matrix[x].end()[-y-1] = 1;
             if(pos_left)
             {
                 for(int y = 0; y < matrix[0].size(); y++)
@@ -158,6 +157,66 @@ class Effects
         }  
     }
 
+    void effect_spiral()
+    {
+        bool pos_left = true;
+        bool pos_top = true;
+        for(int x = 0; x < matrix.size(); x++)
+        {
+            //top-left -> top-right
+            if(pos_left && pos_top)
+            {
+                for(int y = 0; y < matrix[0].size(); y++)
+                {
+                    std::this_thread::sleep_for(std::chrono::milliseconds(Speed/10));
+                    matrix[x][y] = 1;
+                }
+                pos_left = false;
+                pos_top = true;
+            }
+            //top-right -> bottom-right
+            if(!pos_left && pos_top)
+            {
+                for(int x2 = 0; x2 < matrix.size(); x2++)
+                {
+                    std::this_thread::sleep_for(std::chrono::milliseconds(Speed/5));
+                    for(int y = 0; y < matrix[0].size(); y++)
+                    {
+                        matrix[x2].end()[-1-x] = 1;
+                    }
+                }
+                pos_left = false;
+                pos_top = false;
+            }
+            //bottom-right -> bottom-left
+            if(!pos_left && !pos_top)
+            {
+                int pos_x = matrix.size()-x-1;
+                for(int y = 0; y < matrix[0].size(); y++)
+                {
+                    std::this_thread::sleep_for(std::chrono::milliseconds(Speed/10));
+                    matrix[pos_x].end()[-y-1] = 1;
+                }
+                pos_left = true;
+                pos_top = false;
+            }
+            //bottom-left -> top-left
+            if(pos_left && !pos_top)
+            {
+                for(int x2 = matrix.size()-1; x2 > 0; x2--)
+                {
+                    std::this_thread::sleep_for(std::chrono::milliseconds(Speed/5));
+                    for(int y = 0; y < matrix[0].size(); y++)
+                    {
+                        matrix[x2][x] = 1;
+                    }
+                }
+                pos_left = true;
+                pos_top = true;
+            }
+        }
+    }
+
     public:
 
     void init_matrix(int x, int y)
@@ -175,10 +234,9 @@ class Effects
 
     void draw_screen()
     {
-        std::this_thread::sleep_for(std::chrono::milliseconds(60));
+        std::this_thread::sleep_for(std::chrono::milliseconds(40));
         if(OS == "linux") system("clear");
         else if(OS == "windows") system("cls");
-
         for(int x = 0; x < matrix.size(); x++)
         {
             for(int y = 0; y < matrix[0].size(); y++) std::cout << matrix[x][y];
@@ -188,11 +246,12 @@ class Effects
 
     void random_effect(int index)
     {
-        if(index == 0) effect_sweep_horizontal();
-        if(index == 1) effect_sweep_horizontal_reverse();
-        if(index == 2) effect_sweep_vertical();
-        if(index == 3) effect_sweep_vertical_reverse();
+        if(index == 0) effect_horizontal();
+        if(index == 1) effect_horizontal_reverse();
+        if(index == 2) effect_vertical();
+        if(index == 3) effect_vertical_reverse();
         if(index == 4) effect_snake();
         if(index == 5) effect_snake_reverse();
+        if(index == 6) effect_spiral();
     }
 };
