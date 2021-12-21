@@ -2,7 +2,7 @@
 #include <chrono>
 #include <vector>
 
-#define Speed 250
+int Speed = 250;
 
 #ifdef _WIN32
 #define OS "windows"
