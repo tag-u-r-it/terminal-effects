@@ -180,9 +180,9 @@ class Effects
                 for(int x2 = 0; x2 < matrix.size(); x2++)
                 {
                     std::this_thread::sleep_for(std::chrono::milliseconds(Speed/5));
-                    for(int y = 0; y < matrix[0].size(); y++)
+                    for(int y = 0; y < matrix[0].size()-x; y++)
                     {
-                        matrix[x2].end()[-1-x] = 1;
+                        if(x2+x < matrix.size()-1) matrix[x2+x].end()[-1-x] = 1;
                     }
                 }
                 pos_left = false;
