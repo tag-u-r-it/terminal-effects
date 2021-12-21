@@ -157,62 +157,42 @@ class Effects
         }  
     }
 
-    void effect_spiral()
+    void effect_bounce()
     {
-        bool pos_left = true;
-        bool pos_top = true;
-        for(int x = 0; x < matrix.size(); x++)
+        bool direction_right = true;
+        bool direction_down = true;
+        int x_pos = 0;
+        int y_pos = 0;
+        while(y_pos < matrix[0].size()-1)
         {
-            //top-left -> top-right
-            if(pos_left && pos_top)
+            if(direction_down)
             {
-                for(int y = 0; y < matrix[0].size(); y++)
+                for(int x = 0; x < matrix.size(); x++)
                 {
-                    std::this_thread::sleep_for(std::chrono::milliseconds(Speed/10));
-                    matrix[x][y] = 1;
-                }
-                pos_left = false;
-                pos_top = true;
-            }
-            //top-right -> bottom-right
-            if(!pos_left && pos_top)
-            {
-                for(int x2 = 0; x2 < matrix.size(); x2++)
-                {
-                    std::this_thread::sleep_for(std::chrono::milliseconds(Speed/5));
-                    for(int y = 0; y < matrix[0].size()-x; y++)
+                    std::this_thread::sleep_for(std::chrono::milliseconds(Speed));
+                    if(x+x_pos < matrix.size())
                     {
-                        if(x2+x < matrix.size()-1) matrix[x2+x].end()[-1-x] = 1;
+                        if(matrix[x+x_pos][y_pos] == 0) matrix[x+x_pos][y_pos] = 1;
+                        else matrix[x+x_pos][y_pos] = 0;
                     }
+                    y_pos += 1;
                 }
-                pos_left = false;
-                pos_top = false;
+                direction_down = false;
             }
-            //bottom-right -> bottom-left
-            if(!pos_left && !pos_top)
+            else
             {
-                int pos_x = matrix.size()-x-1;
-                for(int y = 0; y < matrix[0].size(); y++)
+                x_pos += 1;
+                for(int x = matrix.size()-1; x > 0; x--)
                 {
-                    std::this_thread::sleep_for(std::chrono::milliseconds(Speed/10));
-                    matrix[pos_x].end()[-y-1] = 1;
-                }
-                pos_left = true;
-                pos_top = false;
-            }
-            //bottom-left -> top-left
-            if(pos_left && !pos_top)
-            {
-                for(int x2 = matrix.size()-1; x2 > 0; x2--)
-                {
-                    std::this_thread::sleep_for(std::chrono::milliseconds(Speed/5));
-                    for(int y = 0; y < matrix[0].size(); y++)
+                    std::this_thread::sleep_for(std::chrono::milliseconds(Speed));
+                    if(x < matrix.size())
                     {
-                        matrix[x2][x] = 1;
+                        if(matrix[x][y_pos] == 0) matrix[x][y_pos] = 1;
+                        else matrix[x][y_pos] = 0;
                     }
+                    y_pos += 1;
                 }
-                pos_left = true;
-                pos_top = true;
+                direction_down = true;
             }
         }
     }
@@ -252,6 +232,6 @@ class Effects
         if(index == 3) effect_vertical_reverse();
         if(index == 4) effect_snake();
         if(index == 5) effect_snake_reverse();
-        if(index == 6) effect_spiral();
+        if(index == 6) effect_bounce();
     }
 };
