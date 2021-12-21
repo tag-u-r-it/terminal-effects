@@ -237,7 +237,11 @@ class Effects
                         system("Color 04");
                         std::cout << matrix[x][y];
                     }
-                    else std::cout << matrix[x][y];
+                    else
+                    {
+                        system("Color 07");
+                        std::cout << matrix[x][y];
+                    }
                 }
             }
             std::cout << std::endl;
