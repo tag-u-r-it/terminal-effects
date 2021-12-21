@@ -232,16 +232,7 @@ class Effects
                 }
                 else if(OS == "windows")
                 {
-                    if (matrix[x][y] == 1)
-                    {
-                        system("Color 04");
-                        std::cout << matrix[x][y];
-                    }
-                    else
-                    {
-                        system("Color 07");
-                        std::cout << matrix[x][y];
-                    }
+                    std::cout << matrix[x][y];
                 }
             }
             std::cout << std::endl;
