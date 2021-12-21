@@ -6,6 +6,7 @@
 
 #ifdef _WIN32
 #define OS "windows"
+#include <windows.h>
 #endif
 
 #ifdef __linux__
@@ -231,7 +232,12 @@ class Effects
                 }
                 else if(OS == "windows")
                 {
-                    std::cout << matrix[x][y];
+                    if (matrix[x][y] == 1)
+                    {
+                        system("Color 04");
+                        std::cout << matrix[x][y];
+                    }
+                    else std::cout << matrix[x][y];
                 }
             }
             std::cout << std::endl;
