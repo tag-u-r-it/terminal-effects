@@ -2,6 +2,8 @@
 #include <thread>
 #include <ctime>
 #include <effects.h>
+#include <random_number.h>
+
 
 int main()
 {
@@ -13,8 +15,6 @@ int main()
     y_input = x_input/2;
     effects.init_matrix(x_input, y_input);
 
-    srand(time(NULL));
-
     std::thread t1([&effects]{
             while(true)
             {
@@ -23,15 +23,18 @@ int main()
         });
         
     int threadCount = 4;
+    Random_number rnd[threadCount];
     std::thread threads[threadCount];
     for(int i = 0; i < threadCount; i++)
     {
         std::this_thread::sleep_for(std::chrono::milliseconds(rand() % Speed + Speed * 2));
-        threads[i] = std::thread([&effects]{
+        srand(time(NULL));
+        threads[i] = std::thread([&effects, &rnd, &i]{
             while(true)
             {
                 //8 possible effects
                 int index = rand() % 8;
+                //int index = rnd[i].get();
                 effects.random_effect(index);
             }
         });
