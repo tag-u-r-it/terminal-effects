@@ -160,8 +160,46 @@ class Effects
 
     void effect_bounce()
     {
-        bool direction_right = true;
         bool direction_down = true;
+        int x_pos = 0;
+        int y_pos = 0;
+        while(y_pos < matrix[0].size()-1)
+        {
+            if(direction_down)
+            {
+                for(int x = 0; x < matrix.size(); x++)
+                {
+                    std::this_thread::sleep_for(std::chrono::milliseconds(Speed));
+                    if(x+x_pos < matrix.size())
+                    {
+                        if(matrix[x+x_pos][y_pos] == 0) matrix[x+x_pos][y_pos] = 1;
+                        else matrix[x+x_pos][y_pos] = 0;
+                    }
+                    y_pos += 1;
+                }
+                direction_down = false;
+            }
+            else
+            {
+                x_pos += 1;
+                for(int x = matrix.size()-1; x > 0; x--)
+                {
+                    std::this_thread::sleep_for(std::chrono::milliseconds(Speed));
+                    if(x < matrix.size())
+                    {
+                        if(matrix[x][y_pos] == 0) matrix[x][y_pos] = 1;
+                        else matrix[x][y_pos] = 0;
+                    }
+                    y_pos += 1;
+                }
+                direction_down = true;
+            }
+        }
+    }
+
+    void effect_bounce_reverse()
+    {
+        bool direction_down = false;
         int x_pos = 0;
         int y_pos = 0;
         while(y_pos < matrix[0].size()-1)
@@ -248,5 +286,6 @@ class Effects
         if(index == 4) effect_snake();
         if(index == 5) effect_snake_reverse();
         if(index == 6) effect_bounce();
+        if(index == 7) effect_bounce_reverse();
     }
 };
