@@ -28,11 +28,11 @@ int main()
     {
         std::this_thread::sleep_for(std::chrono::milliseconds(rand() % Speed + Speed * 2));
         threads[i] = std::thread([&effects, &rnd, &i]{
-            int thread_id_copy = i;
-            int seed = rnd[thread_id_copy].get_seed();
+            int thread_id = i;
             while(true)
             {
-                int index = rnd[thread_id_copy].get_number(seed);
+				//using thread id as seed
+                int index = rnd[thread_id].get_number(thread_id);
                 effects.random_effect(index);
             }
         });
