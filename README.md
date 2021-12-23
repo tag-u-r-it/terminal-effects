@@ -5,3 +5,4 @@ Practicing c++, matrices and threading. Tested on Linux and Windows.
 
 ## TODO
 * Random doesn't work as intended on the Windows version
+* Bounce reverse doesn't go all the way up
