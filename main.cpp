@@ -2,7 +2,6 @@
 #include <thread>
 #include <ctime>
 #include <effects.h>
-#include <stdlib.h>
 #include <random_number.h>
 
 int main()
@@ -30,9 +29,10 @@ int main()
         std::this_thread::sleep_for(std::chrono::milliseconds(rand() % Speed + Speed * 2));
         threads[i] = std::thread([&effects, &rnd, &i]{
             int thread_id_copy = i;
+            int seed = rnd[thread_id_copy].get_seed();
             while(true)
             {
-                int index = rnd[thread_id_copy].get();
+                int index = rnd[thread_id_copy].get_number(seed);
                 effects.random_effect(index);
             }
         });
