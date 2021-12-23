@@ -31,7 +31,7 @@ int main()
             int thread_id = i;
             while(true)
             {
-				//using thread id as seed
+                //using thread id as seed
                 int index = rnd[thread_id].get_number(thread_id);
                 effects.random_effect(index);
             }
