@@ -11,6 +11,5 @@ Size of the matrix will be defined by the size of the terminal.
 
 Size of the matrix will be defined by the user.
 
-## TODO
-* Bounce reverse doesn't go all the way up
+### TODO
 * Create draw_matrix.h
