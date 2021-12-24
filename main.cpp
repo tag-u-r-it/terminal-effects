@@ -11,12 +11,14 @@ int main()
     Effects effects;
 
     int matrix_width, matrix_height;
+    int threadCount;
     //OS defined in effects.h
     if(OS == "windows")
     {
         std::cout << "Width of matrix: ";
         std::cin >> matrix_width;
         matrix_height = matrix_width/2;
+        threadCount = 4;
     }
     else if(OS == "linux")
     {
@@ -24,6 +26,7 @@ int main()
         ioctl(STDOUT_FILENO, TIOCGWINSZ, &size);
         matrix_width = size.ws_col;
         matrix_height = size.ws_row;
+        threadCount = std::thread::hardware_concurrency()-1;
     }
     effects.init_matrix(matrix_width, matrix_height);
 
@@ -34,7 +37,7 @@ int main()
             }
         });
         
-    int threadCount = 4;
+    //int threadCount = 4;
     Random_number rnd[threadCount];
     std::thread threads[threadCount];
     for(int i = 0; i < threadCount; i++)
