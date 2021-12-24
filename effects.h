@@ -260,18 +260,18 @@ class Effects
         {
             for(int y = 0; y < matrix[0].size(); y++)
             {
-                if(OS == "linux")
-                {
+                //if(OS == "linux")
+                //{
                     if (matrix[x][y] == 1)
                     {
                         std::cout << "\x1B[31m" << matrix[x][y] << "\033[0m";
                     }
                     else std::cout << matrix[x][y];
-                }
-                else if(OS == "windows")
-                {
-                    std::cout << matrix[x][y];
-                }
+                //}
+                //else if(OS == "windows")
+                //{
+                //    std::cout << matrix[x][y];
+                //}
             }
             std::cout << std::endl;
         }
