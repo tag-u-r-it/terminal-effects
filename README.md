@@ -5,3 +5,4 @@ Practicing c++, matrices and threading. Tested on Linux and Windows (version 151
 
 ## TODO
 * Bounce reverse doesn't go all the way up
+* Create draw_matrix.h

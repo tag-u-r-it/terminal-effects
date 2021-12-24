@@ -1,6 +1,8 @@
 #include <iostream>
 #include <thread>
 #include <ctime>
+#include <sys/ioctl.h>
+#include <unistd.h>
 #include <effects.h>
 #include <random_number.h>
 
@@ -8,11 +10,22 @@ int main()
 {
     Effects effects;
 
-    int x_input, y_input;
-    std::cout << "Width of matrix: ";
-    std::cin >> x_input;
-    y_input = x_input/2;
-    effects.init_matrix(x_input, y_input);
+    int matrix_width, matrix_height;
+    //OS defined in effects.h
+    if(OS == "windows")
+    {
+        std::cout << "Width of matrix: ";
+        std::cin >> matrix_width;
+        matrix_height = matrix_width/2;
+    }
+    else if(OS == "linux")
+    {
+        struct winsize size;
+        ioctl(STDOUT_FILENO, TIOCGWINSZ, &size);
+        matrix_width = size.ws_col;
+        matrix_height = size.ws_row;
+    }
+    effects.init_matrix(matrix_width, matrix_height);
 
     std::thread t1([&effects]{
             while(true)
@@ -31,8 +44,7 @@ int main()
             int thread_id = i;
             while(true)
             {
-                //using thread id as seed
-                int index = rnd[thread_id].get_number(thread_id);
+                int index = rnd[thread_id].get_number(thread_id, 0, 7);
                 effects.random_effect(index);
             }
         });
