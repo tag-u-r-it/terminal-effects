@@ -16,29 +16,19 @@ int main()
     int matrix_width, matrix_height;
     int threadCount;
     //OS defined in effects.h
-    if(OS == "windows")
-    {
+    #ifdef _WIN32
         std::cout << "Width of matrix: ";
         std::cin >> matrix_width;
         matrix_height = matrix_width/2;
         threadCount = 4;
-    }
-    else if(OS == "linux")
-    {
-        try
-        {
+    #endif
+    #ifdef __linux__ 
         struct winsize size;
         ioctl(STDOUT_FILENO, TIOCGWINSZ, &size);
         matrix_width = size.ws_col;
         matrix_height = size.ws_row;
-        threadCount = std::thread::hardware_concurrency()-1;
-        }
-        catch(int myNum)
-        {
-            std::cout << "Windows" << std::endl;
-        }
-        
-    }
+        threadCount = std::thread::hardware_concurrency()-1;        
+    #endif
     effects.init_matrix(matrix_width, matrix_height);
 
     std::thread t1([&effects]{
