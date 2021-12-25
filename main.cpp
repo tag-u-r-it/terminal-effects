@@ -25,11 +25,19 @@ int main()
     }
     else if(OS == "linux")
     {
+        try
+        {
         struct winsize size;
         ioctl(STDOUT_FILENO, TIOCGWINSZ, &size);
         matrix_width = size.ws_col;
         matrix_height = size.ws_row;
         threadCount = std::thread::hardware_concurrency()-1;
+        }
+        catch(int myNum)
+        {
+            std::cout << "Windows" << std::endl;
+        }
+        
     }
     effects.init_matrix(matrix_width, matrix_height);
 
