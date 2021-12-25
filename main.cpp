@@ -1,10 +1,13 @@
 #include <iostream>
 #include <thread>
 #include <ctime>
-#include <sys/ioctl.h>
-#include <unistd.h>
 #include <effects.h>
 #include <random_number.h>
+
+#ifdef __linux__
+#include <sys/ioctl.h>
+#include <unistd.h>
+#endif
 
 int main()
 {

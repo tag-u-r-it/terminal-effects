@@ -15,7 +15,11 @@ int Speed = 250;
 
 class Effects
 {
+    public:
+
     std::vector<std::vector<int>> matrix;
+
+    private:
 
     void effect_horizontal()
     {
