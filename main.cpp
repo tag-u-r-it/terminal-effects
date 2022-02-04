@@ -15,7 +15,6 @@ int main()
 
     int matrix_width, matrix_height;
     int threadCount;
-    //OS defined in effects.h
     #ifdef _WIN32
         std::cout << "Width of matrix: ";
         std::cin >> matrix_width;
@@ -23,10 +22,25 @@ int main()
         threadCount = 4;
     #endif
     #ifdef __linux__ 
-        struct winsize size;
-        ioctl(STDOUT_FILENO, TIOCGWINSZ, &size);
-        matrix_width = size.ws_col;
-        matrix_height = size.ws_row;
+        int input;
+    again:
+        std::cout << "1: manual matrix size 2: automatic matrix size" << std::endl;
+
+        std::cin >> input;
+        if(input == 1)
+        {
+            std::cout << "Width of matrix: ";
+            std::cin >> matrix_width;
+            matrix_height = matrix_width/2; 
+        }
+        else if(input == 2)
+        {
+            struct winsize size;
+            ioctl(STDOUT_FILENO, TIOCGWINSZ, &size);
+            matrix_width = size.ws_col;
+            matrix_height = size.ws_row;
+        }
+        else goto again;
         threadCount = std::thread::hardware_concurrency()-1;        
     #endif
     effects.init_matrix(matrix_width, matrix_height);
